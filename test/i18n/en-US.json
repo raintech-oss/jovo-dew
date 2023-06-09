@@ -1,0 +1,42 @@
+{
+    "translation": {
+        "key1": {
+            "message": "message1",
+            "reprompt": "reprompt1"
+        },
+        "key2": {
+            "message": "message2",
+            "listen": false
+        },
+        "key3": {
+            "message": "message3 - {{name}}"
+        },
+        "key4": {
+            "message": "message4 - {{lastName}}"
+        },
+        "key5": {
+            "message": "message5 - {{myValue}}"
+        },
+        "key6": {
+            "message": "message6 - {{sfx_success}}"
+        },
+        "key7": {
+            "message": "message7 - {{this_var_does_not_exist}}"
+        },
+        "platform1": {
+            "platforms": "platform1"
+        },
+        "cards": {
+            "card1": {
+                "card": "card1",
+                "title": "Card1 title",
+                "content": "Card1 content"
+            }
+        },
+        "carousel": {
+            "one": {
+                "carousel": "carousel1"
+            }
+        }
+    }
+}
