@@ -57,7 +57,7 @@ import { ViewVariables } from './ViewVariables';
 const app = new App({
   plugins: [
     new DewViewEnginePlugin({
-      viewVariables: new ViewVariables(),
+      viewVariables: ViewVariables(),
       audio: {
         resources: {
           en: audiosEn,
@@ -83,6 +83,10 @@ Here is a sample `ViewVariables.ts` file:
 import { BaseViewVariables } from '@raintech-oss/jovo-dew';
 
 export class ViewVariables extends BaseViewVariables {
+  constructor(jovo: Jovo) {
+    super(jovo);
+  }
+    
   blank(): string {
     return ' ';
   }
