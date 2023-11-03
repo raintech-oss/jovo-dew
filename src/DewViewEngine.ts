@@ -11,6 +11,7 @@ export const Suffix = {
   QuickReplies: 'quickReplies',
   Card: 'card',
   Carousel: 'carousel',
+  ViewVariables: 'vv',
   Platforms: 'platforms',
   APL: 'apl',
 }
@@ -38,9 +39,10 @@ export class DewViewEngine {
     this.registerProcessor(Suffix.Reprompt, outputProcessor);
     this.registerProcessor(Suffix.Listen, outputProcessor);
     this.registerProcessor(Suffix.QuickReplies, outputProcessor);
-    
-    this.registerProcessor(Suffix.Card, viewVariablesProcessor);
-    this.registerProcessor(Suffix.Carousel, viewVariablesProcessor);
+    this.registerProcessor(Suffix.Card, outputProcessor);
+    this.registerProcessor(Suffix.Carousel, outputProcessor);
+
+    this.registerProcessor(Suffix.ViewVariables, viewVariablesProcessor);
     this.registerProcessor(Suffix.Platforms, viewVariablesProcessor);
     this.registerProcessor(Suffix.APL, viewVariablesProcessor);
 
@@ -53,14 +55,14 @@ export class DewViewEngine {
     }
   }
 
-  public get returnResourcePathKeysOnly() : string[] {
+  public get returnResourcePathKeysOnly(): string[] {
     return this._returnResourcePathKeysOnly;
   }
 
-  public set returnResourcePathKeysOnly(value : string[]) {
+  public set returnResourcePathKeysOnly(value: string[]) {
     this._returnResourcePathKeysOnly = value;
-  } 
-  
+  }
+
   private getAudioItems(): AudioItem[] {
     const requestLocale = this.jovo.$request.getLocale();
     const locale = requestLocale ? requestLocale : this.config.audio?.fallbackLocale;
@@ -89,7 +91,7 @@ export class DewViewEngine {
 
   private async instantiateViewVariables(jovo: Jovo): Promise<BaseViewVariables> {
     return await DependencyInjector.instantiateClass(
-      jovo, 
+      jovo,
       this.config.viewVariables as ViewVariablesConstructor,
       jovo);
   }

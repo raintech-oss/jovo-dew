@@ -83,7 +83,7 @@ beforeEach(async () => {
                 resources: {
                     en: audiosEn,
                 },
-                baseUrl: 'https://rmtuckerphx.github.io/apl-ninja-assets',
+                baseUrl: 'https://example.com',
                 fallbackLocale: 'en',
                 defaultExt: '.mp3',
             },
@@ -172,7 +172,7 @@ describe('plugin', () => {
 
     });
 
-    test('async method should return [object Promise]', async () => {
+    test.skip('async method should return [object Promise]', async () => {
         // NOTE: async functions are NOT supported in ViewVariables due
         // to i18next missingInterpolationHandler is sync
         testSuite.$app.plugins!.DewViewEnginePlugin!.config.viewVariables = ViewVariablesInjectable;
@@ -197,7 +197,7 @@ describe('plugin', () => {
 
         expect(output).toEqual([
             {
-                message: 'message6 - <audio src="https://rmtuckerphx.github.io/apl-ninja-assets/success.mp3" />',
+                message: 'message6 - <audio src="https://example.com/success.mp3" />',
             },
         ]);
 

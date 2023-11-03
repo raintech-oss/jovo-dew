@@ -43,11 +43,11 @@ function processAsVariable(plugin: DewViewEngine, key: string): any {
       if (result.then) {
         result.then(
           (value: any) => {
-            console.log("good");
+            // console.log("processAsVariable test1");
             myValue = value;
           },
           () => {
-            console.log("bad");
+            // console.log("processAsVariable test2");
           }
         );
 
