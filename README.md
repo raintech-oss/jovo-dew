@@ -140,10 +140,10 @@ this.$dew
 Here is a sample handler:
 
 ```typescript
-LAUNCH() {
+async LAUNCH() {
   this.$dew.data.name = 'Mark';
 
-  const outputs = this.$dew.getOutput(['Launch.WelcomeBack', 'SFX.Success', 'WhatNext']);
+  const outputs = await this.$dew.getOutput(['Launch.WelcomeBack', 'SFX.Success', 'WhatNext']);
   return this.$send(outputs);
 }
 ```
@@ -210,9 +210,9 @@ myOutput(): OutputTemplate {
             },
         },
         card: {
-          title: this.jovo.$t('cards.card1.title'),
-          content: this.jovo.$t('cards.card1.content'),
-          subtitle: 'sub title',
+          title: this.jovo.$t('someTitle'),
+          content: 'my content',
+          subtitle: 'this card from VV',
           imageUrl: 'https://www.fillmurray.com/200/300',
           imageAlt: 'Fill Murray',
         },        

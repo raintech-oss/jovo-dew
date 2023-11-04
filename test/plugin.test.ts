@@ -5,7 +5,6 @@ import { ViewVariablesClassic } from './ViewVariablesClassic';
 import { NameService } from './NameService';
 import en from './i18n/en-US.json';
 import audiosEn from './audios-file.json';
-import { doesNotMatch } from "assert";
 
 @Global()
 @Component()
@@ -19,53 +18,58 @@ class ComponentA extends BaseComponent {
     }
 
     @Intents('IntentA')
-    handleIntentA() {
-        return this.$send(this.$dew.getOutput('key1'));
+    async handleIntentA() {
+        return this.$send(await this.$dew.getOutput('key1'));
     }
 
     @Intents('IntentB')
-    handleIntentB() {
-        return this.$send(this.$dew.getOutput('key2'));
+    async handleIntentB() {
+        return this.$send(await this.$dew.getOutput('key2'));
     }
 
     @Intents('IntentC')
-    handleIntentC() {
-        return this.$send(this.$dew.getOutput('key3'));
+    async handleIntentC() {
+        return this.$send(await this.$dew.getOutput('key3'));
     }
 
     @Intents('IntentD')
-    handleIntentD() {
-        return this.$send(this.$dew.getOutput('key4'));
+    async handleIntentD() {
+        return this.$send(await this.$dew.getOutput('key4'));
     }
 
     @Intents('IntentE')
-    handleIntentE() {
-        return this.$send(this.$dew.getOutput('key5'));
+    async handleIntentE() {
+        return this.$send(await this.$dew.getOutput('key5'));
     }
 
     @Intents('IntentF')
-    handleIntentF() {
-        return this.$send(this.$dew.getOutput('key6'));
+    async handleIntentF() {
+        return this.$send(await this.$dew.getOutput('key6'));
     }
 
     @Intents('IntentG')
-    handleIntentG() {
-        return this.$send(this.$dew.getOutput('key7'));
+    async handleIntentG() {
+        return this.$send(await this.$dew.getOutput('key7'));
     }
 
     @Intents('IntentH')
-    handleIntentH() {
-        return this.$send(this.$dew.getOutput('platform1'));
+    async handleIntentH() {
+        return this.$send(await this.$dew.getOutput('platform1'));
     }
 
     @Intents('IntentI')
-    handleIntentI() {
-        return this.$send(this.$dew.getOutput('cards.card1'));
+    async handleIntentI() {
+        return this.$send(await this.$dew.getOutput('cards.card1'));
     }
 
     @Intents('IntentJ')
-    handleIntentJ() {
-        return this.$send(this.$dew.getOutput('carousel.one'));
+    async handleIntentJ() {
+        return this.$send(await this.$dew.getOutput('carousel.one'));
+    }
+
+    @Intents('IntentK')
+    async handleIntentK() {
+        return this.$send(await this.$dew.getOutput('vv1'));
     }
 
 }
@@ -100,6 +104,11 @@ beforeEach(async () => {
             useClass: NameService,
         }],
     });
+
+    app.hook('event.DewViewEnginePlugin.getOutput', (jovo: Jovo, payload: unknown): void => {
+        console.log('getOutput hook ==>', JSON.stringify(payload));
+    });
+
     await app.initialize();
 
     testSuite = new TestSuite({
@@ -281,6 +290,26 @@ describe('plugin', () => {
                             content: 'Hi there!',
                         },
                     ],
+                },
+            },
+        ]);
+
+    });
+
+    test('should return message from ViewVariables', async () => {
+        const { output } = await testSuite.run({
+            type: InputType.Intent,
+            intent: 'IntentK',
+        })
+
+        expect(output).toEqual([
+            {
+                card: {
+                    title: 'someTitle',
+                    content: 'my content',
+                    subtitle: 'this card from VV',
+                    imageUrl: 'https://www.fillmurray.com/200/300',
+                    imageAlt: 'Fill Murray',
                 },
             },
         ]);

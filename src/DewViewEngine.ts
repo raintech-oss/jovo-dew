@@ -1,4 +1,4 @@
-import { DependencyInjector, Jovo, OutputTemplate } from '@jovotech/framework';
+import { AnyObject, DependencyInjector, Jovo, OutputTemplate } from '@jovotech/framework';
 import { BaseViewVariables, ViewVariablesConstructor } from './BaseViewVariables';
 import { AudioItem, DewViewEnginePluginConfig } from './DewViewEnginePlugin';
 import { missingInterpolationHandler } from './missingInterpolationHandler';
@@ -14,7 +14,9 @@ export const Suffix = {
   ViewVariables: 'vv',
   Platforms: 'platforms',
   APL: 'apl',
-}
+};
+
+const GET_OUTPUT_MIDDLEWARE = 'event.DewViewEnginePlugin.getOutput';
 
 export class DewViewEngine {
   processors: any;
@@ -100,14 +102,17 @@ export class DewViewEngine {
     this.processors[name] = processor;
   }
 
-  getOutput(path: string | string[]): OutputTemplate[] {
+  async getOutput(path: string | string[]): Promise<OutputTemplate[]> {
     const paths = Array.isArray(path) ? path : [path];
     const outputs: OutputTemplate[] = [];
     const data = Object.assign({}, this.data, this.i18nOptions);
+    const payload = { paths: [] as unknown[] };
 
     for (const path of paths) {
       const obj = this.jovo.$t(path, { skipInterpolation: true });
       const keys = Object.keys(obj);
+
+      payload.paths.push({ path, keys });
 
       let output: OutputTemplate = {};
 
@@ -119,6 +124,8 @@ export class DewViewEngine {
       }
       outputs.push(output);
     }
+
+    await this.jovo.$handleRequest.middlewareCollection.run(GET_OUTPUT_MIDDLEWARE, this.jovo, payload);
 
     return outputs;
   }

@@ -26,17 +26,39 @@
         "platform1": {
             "platforms": "platform1"
         },
+        "vv1": {
+            "vv": "myVV1"
+        },
         "cards": {
             "card1": {
-                "card": "card1",
-                "title": "Card1 title",
-                "content": "Card1 content"
+                "card": {
+                    "title": "Card1 title",
+                    "content": "Card1 content",
+                    "subtitle": "sub title",
+                    "imageUrl": "https://www.fillmurray.com/200/300",
+                    "imageAlt": "Fill Murray"
+                }
             }
         },
         "carousel": {
             "one": {
-                "carousel": "carousel1"
+                "carousel": {
+                    "title": "My Title",
+                    "items": [
+                        {
+                            "title": "Element 1",
+                            "imageUrl": "https://www.fillmurray.com/100/100",
+                            "content": "To my right, you will see element 2."
+                        },
+                        {
+                            "title": "Element 2",
+                            "imageUrl": "https://www.fillmurray.com/g/100/100",
+                            "content": "Hi there!"
+                        }
+                    ]
+                }
             }
-        }
+        },
+        "someTitle": "someTitle"
     }
 }
