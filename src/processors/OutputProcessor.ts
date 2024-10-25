@@ -1,6 +1,6 @@
 import { Jovo } from '@jovotech/framework';
 import { DewViewEngine } from '../DewViewEngine';
-import _set from 'lodash.set';
+import { set } from 'lodash';
 import { BaseProcessor } from './BaseProcessor';
 
 export class OutputProcessor extends BaseProcessor {
@@ -19,7 +19,7 @@ export class OutputProcessor extends BaseProcessor {
       value = `${viewPath}.${key}`;
     }
     
-    _set(response, key, value);
+    set(response, key, value);
 
     return response;
   }

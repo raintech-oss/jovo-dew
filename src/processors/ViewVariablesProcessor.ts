@@ -1,6 +1,5 @@
 import { Jovo } from '@jovotech/framework';
 import { DewViewEngine } from '../DewViewEngine';
-import _set from 'lodash.set';
 import { BaseProcessor } from './BaseProcessor';
 
 export class ViewVariablesProcessor extends BaseProcessor {

@@ -1,6 +1,6 @@
 import { DewViewEngine } from './DewViewEngine';
 import { AudioItem } from './DewViewEnginePlugin';
-import _sample from 'lodash.sample';
+import { sample } from 'lodash';
 import path from 'path';
 import { urlJoin } from 'url-join-ts';
 
@@ -63,7 +63,7 @@ function processAsAudio(plugin: DewViewEngine, key: string): string | undefined 
   if (plugin.audioItems) {
     const items: AudioItem[] = plugin.audioItems.filter((a) => a.variableName === key);
     if (items.length > 0) {
-      const item = _sample(items);
+      const item = sample(items);
 
       if (item) {
         if (item.filename && item.filename !== '') {
